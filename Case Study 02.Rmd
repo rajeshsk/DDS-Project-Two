@@ -1,0 +1,682 @@
+---
+title:"Case Study 02"
+author:"Rajesh Satluri"
+date:"4/1/2020"
+output:html_document:toc:yes
+word_document:default
+pdf_document:default
+---
+
+```{r setup, include=FALSE}
+  knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Description
+DDSAnalytics is an analytics company that specializes in talent management solutions for Fortune 100 companies. Talent management is defined as the iterative process of developing and retaining employees. It may include workforce planning, employee training programs, identifying high-potential employees and reducing/preventing voluntary employee turnover (attrition). To gain a competitive edge over its competition, DDSAnalytics is planning to leverage data science for talent management. The executive leadership has identified predicting employee turnover as its first application of data science for talent management. Before the business green lights the project, they have tasked your data science team to conduct an analysis of existing employee data. 
+
+You have been given a dataset (CaseStudy2-data.csv) to do a data analysis to identify factors that lead to attrition.  You should identify the top three factors that contribute to turnover (backed up by evidence provided by analysis). There may or may not be a need to create derived attributes/variables/features. The business is also interested in learning about any job role specific trends that may exist in the data set (e.g., “Data Scientists have the highest job satisfaction”). You can also provide any other interesting trends and observations from your analysis. The analysis should be backed up by robust experimentation and appropriate visualization. Experiments and analysis must be conducted in R. You will also be asked to build a model to predict attrition.  Details are below.  
+
+
+#Deliverables
+
+This is an individual project.  You all are a tight cohort which is so valuable; I want to harness the power that that represents while maintaining the individual-ness of the project.  The general rules (dos and don’ts) that each student will be on their honor to abide by are:
+Dos:
+	1. Do get excited about the project!
+	2. Do do all the coding. 
+	3. Do discuss specific questions with your peers … i.e. if you want to add a heatmap 
+but don’t know how to code it … you may ask a peer to show you how they did theirs or ask them to point you to a good resource.  You are encouraged to ask me as well.  However, be sure to recognize the Don’ts below!
+Don’ts:
+1. Don’t ever email/give your code / write up / materials related to your approach to the 
+problem or presentation to any student in the class. 
+2. Don’t code anything for anyone else.
+
+
+In general, when deciding between two courses of action, if it feels like it is in the grey area, it is probably in the “Don’t” column.  If you feel like you need clarity or a ruling on something you are not sure is appropriate, just shoot me an email. 
+
+
+#UNIT 14 and 15 Live Sessions:
+The due date for videoed submission is Saturday, Dec 5th at 11:59pm (Week 15). We will not meet for Live Session 15 and there will not be a live presentation component … use this time finish up your project. You know what I am looking for now and in reality, you will only get one shot at a great presentation.  With that said, I will be available to meet during the Live Session Time for optional / voluntary meetings… I will have sign up times on the wall as usual.   Make it a great recording and end the semester with a fantastic presentation / analysis!
+
+ However, we will meet for Live Session 14.  Live Session 14 will be for any Data Science News of the Weeks that needs to be completed and I will answer any questions about the projects that develop by that time (asked via the Wall.) With that said, our Unit 14 class is currently on Thanksgiving so I will need to reschedule that one.  I will hold that class on Sunday evening Dec 1 at 7pm.  Please try and make the class but if you cannot, it is required to watch the video.   
+
+#Further Details:
+Similar to Case Study 1, you will need to record and upload to YouTube a 7-minute presentation.  To do this you can download Jing which is a free video software available at https://www.techsmith.com/jing-tool.html or use your preferred screen capture software.  You can assume that your audience is the CEO and CFO of Frito Lay (your client).  It is a diverse audience; the CEO is a statistician and the CFO has had only one class in statistics.  They have indicated that you cannot take more than 7 minutes of their time. 30% of your grade will be based on the presentation. The goal is to communicate the findings of the project in a clear, concise and scientific manner.  Finally, include the link in your RMarkdown file.  Finally, finally make sure to put the link to the YouTube video in the Google Doc.  The links will be available for a week at which time you may take your video off of YouTube if you wish.  Please make sure and check out at least 3 of your peer’s presentations!  
+
+I provided an additional data set of 300 observations that do not have the labels (attrition or not attrition).  We will refer to this data set as the “Competition Set” and is in the file “CaseStudy2CompSet No Attrition.csv”.  I have the real labels and will thus assess the accuracy rate of your best classification model. 10% of your grade will depend on the sensitivity and specificity rate of your “best” classification model for identifying attrition.  You must provide a model that will attain at least 60% sensitivity and specificity (60 each = 120 total) for the training and the validation set.  Therefore, you must provide the labels (ordered by ID) in a csv file.  Please include this in your GitHub repository and call the file “Case2PredictionsXXXX Attrition.csv”.  XXXX is your last name.  (Example: Case2PredictionsSadler Attrition.csv” would be mine.)  An example submission file can be found on GitHub: Case2PredictionsClassifyEXAMPLE.csv.
+
+I have also provided an additional data set of 300 observations that do not have the Monthly Incomes.  This data is in the file “CaseStudy2CompSet No Salary.csv”.  I have the real monthly incomes (salaries) and will thus assess the RMSE regression model. 10% of your grade will depend on the RMSE (Root Mean square error) of your final model.  You must provide a model that will attain a RMSE < $3000 for the training and the validation set.  Therefore, you must provide the predicted salaries (ordered by ID) in a csv file.  Please include this in your GitHub repository and call the file “Case2PredictionsXXXX Salary.csv”.  XXXX is your last name.  (Example: Case2PredictionsSadler Salary.csv” would be mine.)  An example submission file can be found on GitHub: Case2PredictionsRegressEXAMPLE.csv.
+
+Notes on models to fit: IMPORTANT: First and foremost, you may use outside models that we have not covered but it must be in addition to models that we have covered in class. This means for classifying attrition, you must use either k-NN or naive Bayes but may also use other models (logistic regression, random forest, LDA, SVM, etc) as long as you compare the results between the two or more models.  You may then use any of the models to fulfill the 60/60 sensitivity/specificity requirement.  This goes for regression as well; you must use linear regression but may include additional models for comparison and use in the competition (LASSO, random forest, ensemble models, etc.).  
+
+
+Create a GitHub repository named CaseStudy2DDS with an RMarkdown file containing an executive summary, introduction to the project, all supporting code and analysis, and the slides for the presentation.  The repository should also include your prediction csv file and don’t forget to put the link to the YouTube video in the RMarkdown file.  Submit a link to the GitHub repository via the space provided for the Case Study 02 page in 2DS. Finally, make sure put the link to the YouTube video on the Google Doc.  
+
+Finally, create a Knit file out of your RMD and display it on your GitHub Site you created in Unit 12.  Include the link to your Youtube video (and a link to your RShiny app too if there is one!)
+
+#Bonus: 
+Up to 3 points:  Create an RShiny App to help visualize you results.  The amount of bonus points awarded will be based on correctness, creativeness, effectiveness of the visualization / app. 
+
+
+#BONUS:
+
+The data scientist with the highest sensitivity + specificity (both at least 60%) on the classification validation set will win the Bonus: 5 extra points and bragging rights!  This bonus is between all 4 sections.  1 prize between all 40+ students. 
+
+The data scientist with the lowest RMSE on the regression validation set will win the Bonus: 5 extra points and bragging rights!  This bonus is between all 4 sections.  1 prize between all 40+ students.
+
+
+## Load Libraries
+```{r Load Libraries, message=FALSE, warning=TRUE}
+#install.packages("vctrs")
+library(vctrs)
+library(qwraps2)
+library(tidyverse) # super library that loads dplyr, ggplot2, lubridate, tidyr, stringr, etc.
+library(DataExplorer) # shows missing values by bar and percentage.
+library(maps) # used for heat map
+library(openintro) # used to convert state abbreviation to full state name
+library(gdata)
+library(mapdata)
+library(mime)
+library(treemap) # used for displaying hierarchical data as a set of nested rectangles
+library(VIM)
+library(inspectdf) #usd for columnwise summary, comparison and visualisation of data frames
+library(GGally) # used for ggpairs ()to plot multiple variables, combines different plots into matrix
+library(ggthemes)# used for adding some extra themes, geoms, and scales for 'ggplot2
+library(gridExtra)
+library(class)
+library(broom)
+library(caret)
+library(MASS)
+library(car)
+library(cowplot)
+library(corrplot) 
+library(leaps)
+library(e1071)
+library(data.table)
+theme_set(theme_classic())
+```
+
+
+## Load Data
+```{r}
+#setwd("C:/Users/thads/OneDrive/SMU Data Science/DS6306/DDS6306-Group-Project-1")
+
+tm_emp_data = read.csv(file.choose(),header = TRUE, sep = ',')
+```
+
+
+## Inspect the data
+```{r}
+
+names(tm_emp_data) # view the variable names
+dim(tm_emp_data) # view the dimensions of the data
+str(tm_emp_data) # view the structure of the data
+head(tm_emp_data, n = 5) # view the first 5 records
+tail(tm_emp_data, n = 5) # view the last 5 records
+summary(tm_emp_data) # view basic model data i.e. min, max, mdedium, mean, etc.
+plot_missing(tm_emp_data) #shows missing values using package DataExplorer
+
+```
+
+## Eliminating unnecessary parameter
+```{r}
+# After inspecting the data these columns can be eliminated 
+# This column can be eliminated as there are no observation for less than or equal to 18 years
+dim(tm_emp_data[tm_emp_data$Over18 == "N",])
+
+#Similarly, StandardHours and EmployeeCount
+dim(tm_emp_data[tm_emp_data$EmployeeCount != 1,])
+
+dim(tm_emp_data[tm_emp_data$StandardHours != 80,])
+
+#Drop columns  
+tm_emp_data_trim1 = drop_columns(tm_emp_data, c("Over18","EmployeeCount","StandardHours") )
+tm_emp_data_trim1$StockOptionLevel = as.factor(tm_emp_data_trim1$StockOptionLevel)
+tm_emp_data_trim1$JobSatisfaction = as.factor(tm_emp_data_trim1$JobSatisfaction)
+
+glimpse(tm_emp_data_trim1)
+
+```
+
+
+
+```{r}
+## Inspect Categorical Levels
+tm_emp_data_trim1_cat=inspect_cat(tm_emp_data_trim1)
+
+tm_emp_data_trim1_cat$levels
+show_plot(tm_emp_data_trim1_cat)
+```
+
+
+#Analyse correlation between all continious variables.
+```{r}
+# Correlation between all continious variables
+tm_emp_data_cor_numericVal1 <- select_if(tm_emp_data_trim1, is.numeric) %>% cor()
+corrplot(tm_emp_data_cor_numericVal1, method = "number",
+           type = "upper",
+           tl.cex = 0.8,
+           tl.srt = 90,
+           tl.col = "black")
+
+tm_emp_data_cor_numericVal1 %>% names -> num_parms
+tm_emp_data_cor_numericVal1 %>% keep(is.numeric) %>% names -> num_parms
+num_parms
+
+```
+# MonthlyIncome, MonthlyRate, HourlyRate and DailyRate all retaled to Income. Finding how they are related.
+
+We an see that there is no correlation at all between MonthlyIncome, MonthlyRate, HourlyRate and DailyRate 
+
+```{r}
+tm_emp_data_cor_numericVal2 <- tm_emp_data_trim1[, c("MonthlyIncome", "MonthlyRate", "HourlyRate","DailyRate" )] %>% cor()
+corrplot(tm_emp_data_cor_numericVal2, method = "number",
+           type = "upper",
+           tl.cex = 1,
+           tl.srt = 90,
+           tl.col = "black", )
+corrplot.mixed(tm_emp_data_cor_numericVal2, lower.col = "black", number.cex = .7)
+
+
+```
+There is relation between Attrition and Monthly Income but no clear relation exists between Attrition and MonthlyRate, HourlyRate, DailyRate. We could ignore these parameters for further analysis for MonthlyIncome and Attrition
+
+```{r}
+# MonthlyIncome
+ggplot(tm_emp_data_trim1, aes(x=Attrition, y=MonthlyIncome, color=Attrition, fill(Attrition))) +
+  geom_boxplot()+
+  labs(title="Plot of Attrition  per Monthly Income in $",x="Attrition", y = "Monthly Income $") 
+  
+# MonthlyRate
+ggplot(tm_emp_data_trim1, aes(x=Attrition, y=MonthlyRate, color=Attrition, fill(Attrition))) +
+  geom_boxplot()+
+  labs(title="Plot of Attrition  per Monthly Rate",x="Attrition", y = "Monthly Rate") 
+  
+# Hourly Rate
+ggplot(tm_emp_data_trim1, aes(x=Attrition, y=HourlyRate, color=Attrition, fill(Attrition))) +
+  geom_boxplot()+
+  labs(title="Plot of Attrition  per Hourly Rate",x="Attrition", y = "Hourly Rate") 
+  
+# Daily Rate
+ggplot(tm_emp_data_trim1, aes(x=Attrition, y=DailyRate, color=Attrition, fill(Attrition))) +
+  geom_boxplot()+
+  labs(title="Plot of Attrition  per Daily Rate",x="Attrition", y = "Daily Rate") 
+  
+```
+
+*Attrition*
+
+There are significantly more employees that do not leave their companies vs the ones that do: 730 "No" vs only 140 "Yes." Thus we just need to keep this in mind as we look for changes in the ratios or percentages rather than the raw numbers themselves.
+
+
+```{r, echo=TRUE}
+
+# Attrition: Yes No Percentage
+count(tm_emp_data_trim1, Attrition)
+
+
+att_pie = tm_emp_data_trim1%>%group_by(Attrition)%>%dplyr::summarize(count=n(),  attrition_percent = n()/nrow(tm_emp_data_trim1))
+ggplot(data=att_pie,aes(x=2,y=attrition_percent,fill=Attrition))+
+  geom_col(color="white")+
+  coord_polar("y",start = 1)+
+  geom_text(aes(label=paste0(round(attrition_percent*100),"%")),
+            position = position_stack(vjust = 0.5))+
+  theme(panel.background = element_blank(),
+        axis.line = element_blank(),
+        axis.title = element_blank(),
+        axis.ticks = element_blank(),
+        axis.text = element_blank(),
+        plot.title = element_text(hjust = 0.5,size = I(19)))+
+  ggtitle("Percent Of Attrition")
+
+
+
+```
+
+#Categorical Spread
+
+```{r}
+
+#StockOptionLevel
+
+stockoptionlevel_percent <- tm_emp_data_trim1%>%group_by(StockOptionLevel) %>% dplyr::summarize(count=n(),StockPercentage = n()/nrow(tm_emp_data_trim1))
+
+ggplot(data=stockoptionlevel_percent,aes(x=2,y=StockPercentage,fill=StockOptionLevel))+
+  geom_col(color="white")+
+  coord_polar("y",start = 1)+
+  geom_text(aes(label=paste0(round(StockPercentage*100),"%")),
+            position = position_stack(vjust = 0.5))+
+  theme(panel.background = element_blank(),
+        axis.line = element_blank(),
+        axis.title = element_blank(),
+        axis.ticks = element_blank(),
+        axis.text = element_blank(),
+        plot.title = element_text(hjust = 0.5,size = I(19)))+
+  ggtitle("Stock Option Percent")
+  
+
+#Gender
+
+gender_percent <- tm_emp_data_trim1%>%group_by(Gender) %>% dplyr::summarize(count=n(), GenderPercentage = n()/nrow(tm_emp_data_trim1))
+
+ggplot(data=gender_percent,aes(x=2,y=GenderPercentage,fill=Gender))+
+  geom_col(color="white")+
+  coord_polar("y",start = 1)+
+  geom_text(aes(label=paste0(round(GenderPercentage*100),"%")),
+            position = position_stack(vjust = 0.5))+
+  theme(panel.background = element_blank(),
+        axis.line = element_blank(),
+        axis.title = element_blank(),
+        axis.ticks = element_blank(),
+        axis.text = element_blank(),
+        plot.title = element_text(hjust = 0.5,size = I(19)))+
+  ggtitle("Gender Percent")
+  
+
+#MaritalStatus
+
+ms_percent <- tm_emp_data_trim1%>%group_by(MaritalStatus) %>% dplyr::summarize(count=n(), MaritalStatusPercentage = n()/nrow(tm_emp_data_trim1))
+
+ggplot(data=ms_percent,aes(x=2,y=MaritalStatusPercentage,fill=MaritalStatus))+
+  geom_col(color="white")+
+  coord_polar("y",start = 1)+
+  geom_text(aes(label=paste0(round(MaritalStatusPercentage*100),"%")),
+            position = position_stack(vjust = 0.5))+
+  theme(panel.background = element_blank(),
+        axis.line = element_blank(),
+        axis.title = element_blank(),
+        axis.ticks = element_blank(),
+        axis.text = element_blank(),
+        plot.title = element_text(hjust = 0.5,size = I(19)))+
+  ggtitle("MaritalStatus Percent")
+  
+
+
+#JobRole
+
+JobRole_percent <- tm_emp_data_trim1%>%group_by(JobRole) %>% dplyr::summarize(count=n(), JobRolePercentage = n()/nrow(tm_emp_data_trim1))
+
+ggplot(data=JobRole_percent,aes(x=2,y=JobRolePercentage,fill=JobRole))+
+  geom_col(color="white")+
+  coord_polar("y",start = 1)+
+  geom_text(aes(label=paste0(round(JobRolePercentage*100),"%")),
+            position = position_stack(vjust = 0.5))+
+  theme(panel.background = element_blank(),
+        axis.line = element_blank(),
+        axis.title = element_blank(),
+        axis.ticks = element_blank(),
+        axis.text = element_blank(),
+        plot.title = element_text(hjust = 0.5,size = I(19)))+
+  ggtitle("JobRole Percent")
+  
+
+#OverTime
+
+OverTime_percent <- tm_emp_data_trim1%>%group_by(OverTime) %>% dplyr::summarize(count=n(), OverTimePercentage = n()/nrow(tm_emp_data_trim1))
+
+ggplot(data=OverTime_percent,aes(x=2,y=OverTimePercentage,fill=OverTime))+
+  geom_col(color="white")+
+  coord_polar("y",start = 1)+
+  geom_text(aes(label=paste0(round(OverTimePercentage*100),"%")),
+            position = position_stack(vjust = 0.5))+
+  theme(panel.background = element_blank(),
+        axis.line = element_blank(),
+        axis.title = element_blank(),
+        axis.ticks = element_blank(),
+        axis.text = element_blank(),
+        plot.title = element_text(hjust = 0.5,size = I(19)))+
+  ggtitle("OverTime Percent")
+  
+
+
+
+
+
+```
+
+Looking at a comparision of each the categorical variables for "Yes" vs "No" Attrition, we can see significant differences for the following:
+
+* OverTime category for "Yes"
+* JobRole category for "Sales Representative"
+* MaritalStatus category for "Single"
+
+```{r, echo=TRUE}
+
+
+catplot_att <- function(df, x,y){
+  ggplot(data = df, aes_string(x = x, fill = y)) + 
+    geom_bar(position = "fill", alpha = 0.9) + 
+    coord_flip()
+}
+
+categorical_variables1 = tm_emp_data_trim1 %>% select_if(is.factor) %>% names()
+categorical_variables1 = categorical_variables1[-1]
+calplot_cat_response1 <-lapply(categorical_variables1, function(x) catplot_att(tm_emp_data_trim1,x, "Attrition"))
+cowplot::plot_grid(plotlist = calplot_cat_response1)
+
+
+
+```
+
+
+
+### Linear Regression Model: MonthlyIncome
+
+First we run a linear regression against MonthlyIncome. Note that R will automatically convert factors into dummy variables for us. Uur model shows the following as important parameters that all have p-value <= 0.05:
+
+* BusinessTravel: Travel_Rarely
+* JobLevel
+* JobRole: Laboratory Technician
+* JobRole: Manager
+* JobRole: Research Director
+* JobRole: Research Scientist
+* TotalWorkingYears
+* YearsSinceLastPromotion 
+
+However we need to be congnizant of covariance. When we examine our model we notice that JobRole and Department have extremely high VIF. Typically a VIF value should never be larger than 10.
+
+In light of this we will update our model
+
+
+```{r, echo=TRUE}
+
+### Linear Regression on MonthlyIncome
+
+#NOTE: Just to be safe I am mainitaining seperate ds for regression
+tm_emp_data_trim1_mrl = tm_emp_data_trim1
+# First create model on all variables
+monthly_income_lm = lm(MonthlyIncome ~ ., data =  tm_emp_data_trim1_mrl) 
+summary(monthly_income_lm)
+# Then test for VIF
+vif(monthly_income_lm)
+
+
+```
+
+Our model is looking better but we still have two variables with a VIF higher than 5:
+* TotalWorkingYears
+* YearsAtCompany 
+
+Given that TotalWorkingYears is one of the critical parameters identified by the model, we will leave it in for now and remove only YearsAtCompany
+
+We update our data set to remove Department, JobRole, and YearsAtCompany and rerun the regression model. Important Factors that all have p-value <= 0.05:
+
+* BusinessTravel: Travel_Rarely
+* JobLevel
+* JobRole: Laboratory Technician
+* JobRole: Manager
+* JobRole: Research Director
+* JobRole: Research Scientist
+* TotalWorkingYears
+* YearsSinceLastPromotion 
+
+We can see now that all parameters have a VIF lower than 5
+
+```{r, echo=TRUE}
+
+# Rerun with JobRole and Department removed
+tm_emp_data_trim1_mrl_trim = tm_emp_data_trim1_mrl[,-c(6,16)]
+# create model on remaining variables
+monthly_income_lm = lm(MonthlyIncome ~ ., data =  tm_emp_data_trim1_mrl_trim) 
+summary(monthly_income_lm)
+# Then test for VIF
+vif(monthly_income_lm)
+
+```
+
+### Stepwise Selection
+
+Now that we have used multicollinearity to reduce to 23 parameters, we now will run Stepwise Feature Selection to find the 6 most influential variables and compare them to both what the Random Forest found as well as the prior Linear Regression.
+
+Important Factors that all have p-value <= 0.05:
+
+* BusinessTravel: Travel_Rarely
+* DistanceFromHome 
+* EducationField: Marketing
+* JobLevel
+* TotalWorkingYears
+* YearsWithCurrManager
+
+We can see the RMSE of this model is $1377.65
+
+And the Adjusted R-squared is 0.9128, which means an estimated 91.28% of the MonthlyIncome variable can be accounted for by this model.
+
+
+```{r, echo=TRUE}
+
+# set method to use 5-fold cross-validation
+trainControl(method = "cv", number = 5) -> traincontrol_cv
+
+monthly_income_lm_step = train(MonthlyIncome ~ .,
+  data = tm_emp_data_trim1_mrl_trim,
+  method = "lmStepAIC",
+  trControl = traincontrol_cv
+) 
+
+# Final model
+summary(monthly_income_lm_step)
+
+# Results including RMSE of final model
+monthly_income_lm_step$results
+
+
+```
+
+
+### MonthlyIncome Predictions
+
+
+*Training Data*
+
+We can see prediction error for Random Forest, 0.1652, vs the Linear Regression, 0.2112. Thus we will use the RF model on our final data
+
+```{r, echo=TRUE}
+
+# generating predictions on test data
+tm_emp_data$MonthlyIncome_LM <- predict(monthly_income_lm_step, newdata = tm_emp_data)
+
+
+# Prediction Error for Linear Regression
+RMSE(tm_emp_data$MonthlyIncome_LM, tm_emp_data$MonthlyIncome) / mean(tm_emp_data$MonthlyIncome)
+
+
+
+```
+
+*Test Data*
+
+We run the model on the test data sets that do not have the MonthlyIncome parameter
+
+NOTE: Was not sure if I need to include BOTH the Regression and Random Forest predictions since homework doc said "You MUST use linear regression but MAY include additional models." So just to be safe I'm including both:
+
+* MonthlyIncome_LM = Predictions for Regression
+* MonthlyIncome_RF = Predictions for Random Forest
+
+
+```{r, echo=TRUE}
+
+# loading prediction data
+#salary_pred.df <- read.csv(
+ # "/CaseStudy2DDS/master/data/CaseStudy2CompSet_NoSalary.csv", 
+  #sep = ",", 
+#  header = TRUE)
+#read CompSet_NoSalary.csv
+MonthlyIncome_pred = read.csv(file.choose(),header = TRUE, sep = ',')
+
+str(MonthlyIncome_pred)
+head(MonthlyIncome_pred) 
+colnames(MonthlyIncome_pred)[colnames(MonthlyIncome_pred) == "ï..ID"] <- "ID"
+# generating predictions on test data
+MonthlyIncome_pred$MonthlyIncome_LM <- predict(monthly_income_lm_step, newdata = MonthlyIncome_pred)
+
+
+
+```
+
+
+
+
+
+
+## Attrition
+
+Now we will focus on Attrition, first using K-Nearest Neighbor [KNN], and then comparing to a Random Forest model
+
+First we need to split the data into a training & testing set. 80% of our data will be used for the training set and will be used to create the model. The remaining 20% is for the test set, which will be used to validate actual values vs predicted values using our model. 
+
+We need to measure the models: 
+
+* Accuracy: correct results / all results
+* Sensitivity: correctly predicted Attrition:No / All actual "No" 
+* Specificity: correctly predicted Attrition:Yes / All actual "Yes" 
+
+```{r, echo=TRUE}
+
+### Creating 80/20 Training / Test Data Split 
+
+attrition_vector <- createDataPartition(tm_emp_data_trim1$Attrition, p = 0.8, list = F)
+attrition_train <- tm_emp_data_trim1[attrition_vector,] 
+attrition_test <- tm_emp_data_trim1[-attrition_vector,]
+
+# validate train and test sets
+head(attrition_train)
+head(attrition_test)
+
+```
+
+### K-Nearest Neighbor
+
+Overall when we run the model on the test data set we acheive above 85% for all categories.
+
+       No Yes
+  No  145   1
+  Yes  21   7
+
+Accuracy : 0.8736
+Sensitivity : 0.8735         
+Specificity : 0.8750 
+
+```{r, echo=TRUE}
+
+# control settings for KNN
+# NOTE: needed in order to focus on specificity
+
+traincontrol_knn = trainControl(
+  method = "repeatedcv",
+  number = 5,
+  repeats = 25,
+  summaryFunction = twoClassSummary,
+  classProbs = TRUE
+)
+
+# KNN on Training Set
+
+attrition_knn <- train(Attrition ~ ., data = attrition_train, method = "knn", metric = "Spec",  trControl = traincontrol_knn,  
+                       preProcess = c("center","scale"), tuneLength = 6
+)
+
+#test
+# Adding predictions to Test Data
+attrition_test$Attrition_KNN = predict(attrition_knn, newdata = attrition_test )
+
+
+# creating confusion matrix
+confusionMatrix(
+  table(attrition_test$Attrition, attrition_test$Attrition_KNN )
+)
+
+#Train
+# Adding predictions to Test Data
+predict(attrition_knn, newdata = attrition_train ) -> attrition_train$Attrition_KNN
+# creating confusion matrix
+confusionMatrix(
+  table(attrition_train$Attrition, attrition_train$Attrition_KNN )
+)
+
+#Whole Dataset
+tm_emp_data
+predict(attrition_knn, newdata = tm_emp_data ) -> tm_emp_data$Attrition_KNN
+# creating confusion matrix
+confusionMatrix(
+  table(tm_emp_data$Attrition, tm_emp_data$Attrition_KNN )
+)
+
+```
+### Predictions for Attrition
+
+As an additional validation step we then can run the two models across the entire data set and compare against the actual Attrition values
+
+*Validating KNN on Entire Training Data Set*
+
+Again the model performs will acheiving over 85% in all 3 categories
+
+
+       No Yes
+  No  724   6
+  Yes 107  33
+  
+Accuracy : 0.8701
+Sensitivity : 0.8712          
+Specificity : 0.8462
+
+
+```{r, echo=TRUE}
+
+# generating predictions on test data
+tm_emp_data$Attrition_KNN <- predict(attrition_knn, newdata = tm_emp_data)
+
+# creating confusion matrix for KNN
+confusionMatrix(
+  table(tm_emp_data$Attrition, tm_emp_data$Attrition_KNN )
+)
+
+
+```
+
+
+*Test Data*
+
+We run the model on the test data sets that do not have the Attrition parameter
+
+NOTE: Was not sure if I need to include BOTH the KNN and Random Forest predictions since homework doc said "You MUST use linear regression but MAY include additional models." So just to be safe I'm including both:
+
+* Attrition_KNN = Predictions for KNN
+* Attrition_RF = Predictions for Random Forest 
+
+```{r, echo=TRUE}
+
+# loading prediction data
+#attrition_pred.df <- read.csv(
+ # "/master/data/CaseStudy2CompSet_NoAttrition.csv", 
+  #sep = ",", 
+#  header = TRUE)
+
+#read CompSet_NoSalary.csv
+attrition_pred_df = read.csv(file.choose(),header = TRUE, sep = ',')
+
+str(attrition_pred_df)
+head(attrition_pred_df) 
+
+# generating predictions on test data
+attrition_pred_df$Attrition_KNN <- predict(attrition_knn, attrition_pred_df)
+
+
+
+
+```
+
+
+
+## Conclusion
+
+For determining Attrition, the most likely profile based on our analysis is the following.
+
+Candidates with "Yes" in the OverTime field are more likely to leave. We are assuming these are non-exempt employees, however this is not explicitly stated for the data set
+
+Candidates that make less than $30,000 per year are more likely to leave. There is evidence of a correlation between MonthlyIncome and Attrition
+
+JobRoles can effect in both ways. Sales Reps are more likely to leave, while Research and Marketing Directors are more likely to stay
+
+MaritalStatus can also effect in both ways. Single employees are more likely to leave, while Divorced employees are more likely to stay
+
+
+
